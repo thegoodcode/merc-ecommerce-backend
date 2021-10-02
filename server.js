@@ -1,13 +1,21 @@
 const express = require('express')
 const app = express()
+const dotenv = require('dotenv').config()
 const products = require('./data/products')
 
 app.get('/api/products', (req, res) => {
-  res.json(products)
+	res.json(products)
 })
 app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id === req.params.id)
-  res.json(product)
+	const product = products.find(p => p._id === req.params.id)
+	res.json(product)
 })
 
-app.listen(8000, console.log('server started'))
+const PORT = process.env.PORT || 8000
+
+app.listen(
+	PORT,
+	console.log(
+		`Server started running in ${process.env.NODE_ENV} mode on port ${PORT}`
+	)
+)
